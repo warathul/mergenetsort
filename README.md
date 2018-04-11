@@ -71,8 +71,9 @@ tests via `time` or `perf stat`.
 
 I've also included two Makefile targets for testing and benchmarking:
 
-`make test` will run a few different sizes for both algorithms and compare the results.
-`make bench` will run a benchmark test for a larger array size for both algorithms either using
+- `make test` will run a few different sizes for both algorithms and compare the results.
+
+- `make bench` will run a benchmark test for a larger array size for both algorithms either using
 time or, if installed, perf.
 
 ## Installation
