@@ -20,12 +20,13 @@ ranging from classical `bubblesort` over `mergesrort`, `qsort`, `heapsort` up to
 specialized sorting algorithms like `radixsort`.
 
 A very interesting subdomain of search algorithms are the so called sorting networks<sup>[1]</sup>.
-They work on a fixed comparator network that guarantees in as few comparisons as possible to sort
-an array of fixed length. They are also especially suited for parallel operation.
+They work on a comparator network with fixed seize and order of comparisons that sorts an array of
+fixed length with as few comparisons as possible. They are also especially suited for parallel
+operation.
 
-The interesting part is that, at lestt for smaller sorting networks up to a size of 10 elements
-you can construct a networks that use significantly less comparisons than the best known general
-purpose sorting algorithms.
+The interesting part is that, at least for smaller sorting networks up to a size of 10 elements,
+you can construct a network that use significantly less comparisons on average than the best known
+general purpose sorting algorithms.
 
 The optimal sorting networks known today are as follows:
 
