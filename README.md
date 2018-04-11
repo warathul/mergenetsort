@@ -59,12 +59,14 @@ use to run some test.
 In order to test the algorithm, especially against the original `qosrt()` you can use the
 `mergenetsort` application you get when you build the project.
 
-The `mergenetsort` application has 2 parameters: `./mergenetsort [algorithm=[m|q]] [arraysize]`
+The `mergenetsort` application has 3 parameters: `./mergenetsort [algorithm=[m|q]] [arraysize] [loops]`
 
 The `algorithm` parameter specifies whether you want to run a test using `**m**ergenetsort` or
 `**q**sort`. Default is `m`.
 The `arraysize` parameter allows you to specify the number of random elements that should be
 generated. Default is `1000`.
+The `loops` parameter lets you change the number of times the random array will be sorted.
+Default is 100.
 
 The output is the sorted array, one element each line. This way you can easily compare outputs for
 both algorithms and different arraysizes or redirect the output to `/dev/null` and do runtime
