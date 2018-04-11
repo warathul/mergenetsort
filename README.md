@@ -44,9 +44,6 @@ those blocks, but i chose to use mergesort as an obvious choice as i already had
 blocks now. Most likely using `timsort`[2] would have been even better, especially as `timsort` is
 designed to benefit from runs of ascending or decending elements.
 
-
-## Getting Started
-
 ## Building
 To build the test application, simply run a
 
