@@ -41,8 +41,8 @@ is equal to the upper bound, which makes it size optimal.
 In the mergenetsort i use the sorting network of size 10 to do one intial pass over the whole
 array and sort it in blocks of size 10. After that, one could use any sorting algorithm to merge
 those blocks, but i chose to use mergesort as an obvious choice as i already had lots of presorted
-blocks now. Most likely using `timsort`<sup>[2]</sup> would have been even better, especially as `timsort` is
-designed to benefit from runs of ascending or decending elements.
+blocks now. Most likely using `timsort`<sup>[2]</sup> would have been even better, especially as
+`timsort` is designed to benefit from runs of ascending or decending elements.
 
 ## Building
 To build the test application, simply run a
