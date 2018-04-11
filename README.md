@@ -44,13 +44,29 @@ those blocks, but i chose to use mergesort as an obvious choice as i already had
 blocks now. Most likely using `timsort`<sup>[2]</sup> would have been even better, especially as
 `timsort` is designed to benefit from runs of ascending or decending elements.
 
+## Getting Started
+To clone the project simply use your git command to create a local clone of the repository:
+
+`git clone https://github.com/warathul/mergenetsort.git`
+
+After that you will have a directory with the name `mergenetsort` that contains all the code and
+a Makefile for Linux/Unix systems.
+
 ## Building
 To build the test application, simply run a
 
 `make`
 
-from your commandline. This will create a test application called `mergenetsort` which you can
-use to run some test.
+from your commandline directly in the repository directory. This will create a test application
+called `mergenetsort` which you can use to run some test.
+
+## Installation
+In order to use this new sort as a pilot test you can simply copy the `mergenetsort.c` and
+`mergenetsort.h` to your project directory and include them in your project and then either
+replace all your `qsort()` calls with `mergesort()` or define the following macro in your
+main header file:
+
+`#define qsort mergesort`
 
 ## Testing
 In order to test the algorithm, especially against the original `qosrt()` you can use the
@@ -75,14 +91,6 @@ I've also included two Makefile targets for testing and benchmarking:
 
 - `make bench` will run a benchmark test for a larger array size for both algorithms either using
 time or, if installed, perf.
-
-## Installation
-In order to use this new sort as a pilot test you can simply copy the `mergenetsort.c` and
-`mergenetsort.h` to your project directory and include them in your project and then either
-replace all your `qsort()` calls with `mergesort()` or define the following macro in your
-main header file:
-
-`#define qsort mergesort`
 
 ## Benchmarks
 ### Testsetup:
@@ -123,10 +131,18 @@ Perf stat for qsort for 100 x 1000000 elements:
       14.442013111 seconds time elapsed
 ```
 
-## Future outlook/TODO
+## Future/TODO
 - Optimize the `mergesort()` and `merge()` functions
 - Investigate in-place `mergesort` algorithms
 - Look into using `timsort` as a replacement for the `mergesort`
+
+## Contribution
+As with any open source project, feel free to clone or fork the code at your leisure. If you
+find any issues you can always leave me a note in the github
+[issue tracker](https://github.com/warathul/mergenetsort/issues).
+
+## Authors
+- *Philipp Knirsch* - Initial idea and implementation - [warathul](https://github.com/warathul)
 
 ## License
 
