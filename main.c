@@ -22,8 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mergenetsort.h"
-
-#define LOOP 100
+#include "mergenetsort.c"
 
 u_int64_t state[2];
 u_int64_t __rand() {
@@ -45,27 +44,42 @@ int int_cmp(const void *a, const void *b)
 }
 
 int main(int argc, char *argv[]) {
-    int ELEMS = atoi(argv[1]);
+    int ELEMS = 1000;
+    int LOOP = 100;
+    char algo = 'm';
+
+    if (argc > 1) {
+        algo = argv[1][0];
+    }
+
+    if (argc > 2) {
+        ELEMS = atoi(argv[2]);
+    }
+
+    if (argc > 3) {
+        LOOP = atoi(argv[3]);
+    }
 
     int *t = malloc(sizeof(int) * ELEMS);
     int *v = malloc(sizeof(int) * ELEMS);
 
     state[0] = 0x87654321;
-    for(int i = 0; i < ELEMS; i++) {
+    for (int i = 0; i < ELEMS; i++) {
         t[i] = (__rand() % ELEMS) + 1;
     }
 
     for (int i = 0; i < LOOP; i++) {
         memcpy(v, t, ELEMS * sizeof(int));
-        mergesort(v, ELEMS, sizeof(int), int_cmp);
-        //qsort(v, ELEMS, sizeof(int), int_cmp);
+        if (algo == 'm') {
+            mergesort(v, ELEMS, sizeof(int), int_cmp);
+        } else {
+            qsort(v, ELEMS, sizeof(int), int_cmp);
+        }
     }
 
-#if 1
     for(int i = 0; i < ELEMS; i++) {
         printf("%d\n", v[i]);
     }
-#endif
 
     free(v);
     free(t);
