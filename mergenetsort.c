@@ -49,7 +49,6 @@ void netsort2(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort3(void *d, size_t size, int (*compar)(const void *, const void *)) {
-//    printf("%x %d\n", d, size);
     SWAP(1, 2);
     SWAP(0, 2);
     SWAP(0, 1);
