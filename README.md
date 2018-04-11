@@ -19,7 +19,7 @@ Over the past decades many different types of sorting algorithms and methods hav
 ranging from classical `bubblesort` over `mergesrort`, `qsort`, `heapsort` up to `timsort` or even
 specialized sorting algorithms like `radixsort`.
 
-A very interesting subdomain of search algorithms are the so called sorting networks[footnote1].
+A very interesting subdomain of search algorithms are the so called sorting networks<sup>[1]</sup>.
 They work on a fixed comparator network that guarantees in as few comparisons as possible to sort
 an array of fixed length. They are also especially suited for parallel operation.
 
@@ -41,7 +41,7 @@ is equal to the upper bound, which makes it size optimal.
 In the mergenetsort i use the sorting network of size 10 to do one intial pass over the whole
 array and sort it in blocks of size 10. After that, one could use any sorting algorithm to merge
 those blocks, but i chose to use mergesort as an obvious choice as i already had lots of presorted
-blocks now. Most likely using `timsort`[2] would have been even better, especially as `timsort` is
+blocks now. Most likely using `timsort`<sup>[2]</sup> would have been even better, especially as `timsort` is
 designed to benefit from runs of ascending or decending elements.
 
 ## Building
@@ -146,4 +146,5 @@ Perf stat for qsort for 100 x 1000000 elements:
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-<a name="footnote1"> [Sorting Networks Wikipedia](https://en.wikipedia.org/wiki/Sorting_network)
+[1]: https://en.wikipedia.org/wiki/Sorting_network
+[2]: https://en.wikipedia.org/wiki/Timsort
