@@ -199,16 +199,6 @@ void netsort10(void *d, size_t size, int (*compar)(const void *, const void *)) 
 void merge(void *d, void *s1, void *s2, size_t c1, size_t c2, size_t size, int (*compar)(const void *, const void *)) {
     size_t i2 = 0, i1 = 0;
 
-    if (c1 == 0) {
-        memcpy(d, s2, size * c2);
-        return;
-    }
-
-    if (c2 == 0) {
-        memcpy(d, s1, size * c1);
-        return;
-    }
-
     while(i1 < c1 && i2 < c2) {
         if(compar(s1, s2) < 0) {
             memcpy(d, s1, size);
@@ -224,6 +214,7 @@ void merge(void *d, void *s1, void *s2, size_t c1, size_t c2, size_t size, int (
 
     if (i1 < c1) {
         memcpy(d, s1, size * (c1 - i1));
+        return;
     }
 
     if (i2 < c2) {
@@ -313,7 +304,6 @@ void mergesort(void *d, size_t n, size_t size, int (*compar)(const void *, const
             merge(d1, s1, s2, blocksize, rest, size, compar);
             rest += blocksize;
         } else {
-            //printf("Copy Rest form s1[%d-%d]\n", (s1 - td1)/size, (s1 - td1)/size + rest);
             if (rest > 0) {
                 memcpy(d1, s1, rest * size);
             }
@@ -327,10 +317,16 @@ void mergesort(void *d, size_t n, size_t size, int (*compar)(const void *, const
     }
 
     /* And merge the last big block with the remainder of the items */
-    s1 = td1;
-    s2 = td1 + blocksize * size;
-    d1 = td2;
-    merge(d1, s1, s2, blocksize, rest, size, compar);
+    if (rest > 0) {
+        s1 = td1;
+        s2 = td1 + blocksize * size;
+        d1 = td2;
+        merge(d1, s1, s2, blocksize, rest, size, compar);
+    } else {
+        s1 = td1;
+        td1 = td2;
+        td2 = s1;
+    }
 
     /* In case we end up with the last merge buffer being our temporary one
      * we need to do one last copy to the original.

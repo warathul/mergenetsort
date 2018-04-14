@@ -25,6 +25,13 @@ bench:	mergenetsort
 
 test:	mergenetsort
 	@TMPDIR=`mktemp -d`; \
+	for i in `seq 1 1 200`; \
+	do \
+	    echo "Comparing result for $$i elements"; \
+	    ./mergenetsort m $$i 1 > $$TMPDIR/m; \
+	    ./mergenetsort p $$i 1 > $$TMPDIR/p; \
+	    diff -urN $$TMPDIR/m $$TMPDIR/p; \
+	done; \
 	for i in `seq 3 7 20000`; \
 	do \
 	    echo "Comparing result for $$i elements"; \
