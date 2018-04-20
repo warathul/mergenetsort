@@ -22,39 +22,43 @@
 
 /* Block of all network sort functions we use, up to 10 in the end. Using a
  * very simple min/max swap macro which gets extremely well optimized by gcc.
- * Using the SWAP2 macro from the latest glibc qsort implementation.
+ * Using the SWAP2 macro from the latest glibc qsort implementation with some
+ * modifications.
  */
-#define min(x, y) (compar(x,y)<0?(x):(y))
-#define max(x, y) (compar(x,y)<0?(y):(x))
-#define SWAP(x,y) { void *a = min(d + x*size, d + y*size); \
-                    void *b = max(d + x*size, d + y*size); \
-                    if (a != (d + x*size)) { \
-                        SWAP2(a, b); \
-                    }}
-#define SWAP2(c, d)			        			      \
-  do									      \
-    {									      \
-      register size_t __size = (size);					      \
-      register char *__a = (c), *__b = (d);				      \
-      do								      \
-	{								      \
-	  char __tmp = *__a;						      \
-	  *__a++ = *__b;						      \
-	  *__b++ = __tmp;						      \
-	} while (--__size > 0);						      \
-} while (0)
+#define __NETSORT_HEADER                                                \
+    char *__a;                                                          \
+    char *__b;                                                          \
+    size_t __size;                                                      \
+    char __tmp;
+
+#define SWAP(x, y)			        			\
+{	        							\
+    __a = (d + x*size);                                                 \
+    __b = (d + y*size);                                                 \
+    if (compar(__a, __b) > 0)  {                                        \
+        __size = size;                                                  \
+        do {                                                            \
+	    __tmp = *__a;						\
+	    *__a++ = *__b;						\
+	    *__b++ = __tmp;						\
+	} while (--__size > 0);						\
+    }                                                                   \
+}
 
 void netsort2(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(0, 1);
 }
 
 void netsort3(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(1, 2);
     SWAP(0, 2);
     SWAP(0, 1);
 }
 
 void netsort4(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(0, 1);
     SWAP(2, 3);
     SWAP(0, 2);
@@ -63,6 +67,7 @@ void netsort4(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort5(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(0, 1);
     SWAP(3, 4);
     SWAP(2, 4);
@@ -75,6 +80,7 @@ void netsort5(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort6(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(1, 2);
     SWAP(0, 2);
     SWAP(0, 1);
@@ -90,6 +96,7 @@ void netsort6(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort7(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(1, 2);
     SWAP(0, 2);
     SWAP(0, 1);
@@ -109,6 +116,7 @@ void netsort7(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort8(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(0, 1);
     SWAP(2, 3);
     SWAP(0, 2);
@@ -131,6 +139,7 @@ void netsort8(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort9(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(0, 1);
     SWAP(3, 4);
     SWAP(6, 7);
@@ -159,6 +168,7 @@ void netsort9(void *d, size_t size, int (*compar)(const void *, const void *)) {
 }
 
 void netsort10(void *d, size_t size, int (*compar)(const void *, const void *)) {
+    __NETSORT_HEADER
     SWAP(4, 9);
     SWAP(3, 8);
     SWAP(2, 7);

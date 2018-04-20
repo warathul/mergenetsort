@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I. -O3 -Wall
 LDFLAGS=
-DEPS=mergenetsort.h mergenetsort.c
+DEPS=mergenetsort.h mergenetsort.c main.c
 OBJ=main.o
 
 %.o: %.c $(DEPS)
